@@ -1,3 +1,6 @@
+def hello_to_github():
+    return "Hello GitHub Actions!"
+
 def add(a, b):
     return a + b
 
