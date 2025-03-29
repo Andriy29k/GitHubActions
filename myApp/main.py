@@ -1,5 +1,5 @@
 def hello_to_github():
-    return "Hello GitHub Actions!"
+    return print("Hello GitHub Actions!")
 
 def add(a, b):
     return a + b
@@ -26,7 +26,8 @@ def equal(a, b):
     
     else:
         return "Not equal"
-    
+
+hello_to_github()
 print(add(2, 5))
 print(substraction(7, 2))
 print(multiply(3, 3))
