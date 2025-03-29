@@ -1,19 +1,20 @@
 name: CI task_1
 on:
-	push:
-		branches: [ "main" ]
-	pull_request:
-		branches: [ "main" ]
-	workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
 
 jobs:
-	build:
-		runs-on: ubuntu-latest
-	 	steps:
-			- uses: actions/checkout@v4
-			
-			- name: Say hello to Python!
-				run: echo Hello, Python!
-			
-			- name: Say Hello to Github!
-		 		run: chmod +x ./myApp/main.py && python3 ./myApp/main.py
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Say hello to Python!
+        run: echo Hello, Python!
+
+      - name: Say Hello to Github!
+        run: chmod +x ./myApp/main.py && python3 ./myApp/main.py
