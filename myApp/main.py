@@ -1,5 +1,5 @@
 def hello_to_github():
-    return print("Hello GitHub Actions!")
+    return "Hello GitHub Actions!"
 
 def add(a, b):
     return a + b
