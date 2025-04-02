@@ -17,4 +17,4 @@ jobs:
         run: echo Hello, Python!
 
       - name: Say Hello to Github!
-        run: chmod +x ./myApp/main.py && python3 ./myApp/main.py
+        run: chmod +x ./myapp/app.py && python3 ./myapp/app.py

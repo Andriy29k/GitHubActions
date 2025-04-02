@@ -12,8 +12,7 @@ def multiply(a, b):
 
 def divide(a, b):
     if(b == 0):
-        return ZeroDivisionError 
-    
+        return ZeroDivisionError
     else:
         return a / b
 

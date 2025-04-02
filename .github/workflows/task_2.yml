@@ -1,0 +1,37 @@
+name: Run tests with coverage
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+        name: Install requirements
+        run: |
+          - pip install -r requirement.txt
+
+        name: Run tests with coverage
+        run: |
+          - chmod +x ./tests/test_app.py && python3 ./tests/test_app.py
+          pytest --cov=myapp --cov-report=xml
+
+        name: Tests coverage check
+        run: |
+          COVERAGE=$(pytest --cov=myapp --cov-report=term | grep -oP 'TOTAL.*?\K\d+(?=%)')
+          if [ "$COVERAGE" -lt 70 ]; then
+            echo "Test coverage is below 70% ($COVERAGE%). Failing workflow."
+            exit 1
+          fi
+
+      - name: Upload coverage report
+          uses: actions/upload-artifact@v3
+          with:
+            name: coverage-report
+            path: coverage.xml

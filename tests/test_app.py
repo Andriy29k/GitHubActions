@@ -1,6 +1,6 @@
-import myApp
+import pytest
+from myapp.app import add, substraction, multiply, divide, power
 
-from myApp.main import add, substraction, multiply, divide, power, equal
 
 def test_add():
     assert add(11, 3) == 14
