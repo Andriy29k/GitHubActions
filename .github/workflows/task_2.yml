@@ -1,28 +1,36 @@
-name: Run tests with coverage
+name: Run Tests with Coverage
+
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-        name: Install requirements
-        run: |
-          - pip install -r requirement.txt
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
 
-        name: Run tests with coverage
+      - name: Install dependencies
         run: |
-          - chmod +x ./tests/test_app.py && python3 ./tests/test_app.py
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests with coverage
+        run: |
           pytest --cov=myapp --cov-report=xml
 
-        name: Tests coverage check
+      - name: Check coverage threshold (≥70%)
         run: |
           COVERAGE=$(pytest --cov=myapp --cov-report=term | grep -oP 'TOTAL.*?\K\d+(?=%)')
           if [ "$COVERAGE" -lt 70 ]; then
@@ -31,7 +39,7 @@ jobs:
           fi
 
       - name: Upload coverage report
-          uses: actions/upload-artifact@v3
-          with:
-            name: coverage-report
-            path: coverage.xml
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.xml
